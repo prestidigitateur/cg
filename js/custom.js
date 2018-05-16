@@ -1,5 +1,5 @@
 var currentPage = 0;
-var lastPage = 2;
+var lastPage = 4;
 
 function nextQwestion(){
 	if(currentPage < lastPage){
@@ -8,6 +8,12 @@ function nextQwestion(){
 		currentPage++;
 		showNextButton();
 		showPrevButton();
+	}
+	else{
+		//reset
+		$('.carousel').carousel('next');
+		$('.carousel').carousel('pause');
+		currentPage = 0;
 	}
 }
 function prevQwestion(){
