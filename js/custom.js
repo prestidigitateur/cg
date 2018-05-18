@@ -1,33 +1,107 @@
-var currentPage = 0;
-var lastPage = 4;
+var currentQwestion = -1;
+var jsonQwestions = '[{"q":"Вас попросили разработать калькулятор. Какой из предложенных вариантов вы выберете? а","a1":"Разработать веб приложение чтобы иметь доступ к калькулятору с любого устройства","t1":"ВР","a2":"Разработать мобильную версию приложения для использования калькулятора оффлайн","t2":"ПИ","a3":"Разработать консольное приложение с повышенной отказоустойчивостью","t3":"ИБ","a4":"Разработать алгоритм для максимально точного калькулятора","t4":"ПМиИ"},{"q":"Ваш знакомый увлекся бизнесом и просит вас посоветовать crm систему для него. Ваши действия? а","a1":"Посоветовать вести учет в excel online пока он не поймет какие именно возможности ему нужны","t1":"ВР","a2":"Посоветовать использовать готовые облачные решения","t2":"КС","a3":"Предложите написать crm специально под его задачи","t3":"ПИ","a4":"Посоветуете популярные настольные решения и свой сервер","t4":"ИБ"},{"q":"Ваша бабушка постоянно теряет свой смартфон и вы хотите ей помочь. а","a1":"Покажите ей сайт для отслеживания телефона","t1":"ВР","a2":"Установите софт для отслеживания устройства через Telegram","t2":"ИБ","a3":"Установите приложение издающее звуковой сигнал при определенных условиях","t3":"ПИ","a4":"Спроектируете кнопку которая отправляет сигнал на телефон по определенному протоколу","t4":"САПР"},{"q":"У вас скоро экзамен вам необходимо подготовить подсказки. Ваши действия? а","a1":"Найти сайт со шпаргалками","t1":"ВР","a2":"Найти приложение со шпаргалками","t2":"ПИ","a3":"Попытаться распознать текст из записей в тетради","t3":"КС","a4":"Записать шпаргалки на листе используя методики шифрования","t4":"ИБ"},{"q":"Вы работаете в компании и вас попросили разработать систему оповещения сотрудников. а","a1":"Разработать устройства для передачи сообщений","t1":"САПР","a2":"Найти людей которые уже делали подобные системы и договориться о реализации у вас в фирме","t2":"ИТМ","a3":"Объединить компьютеры в одну сеть и написать программу для оповещения","t3":"ПИ","a4":"Доработать известные решения убрав все лишнее","t4":"ИБ"},{"q":"Вы отправляетесь в путешествие. Вам нужно найти авиабилеты. Чем вы воспользуетесь? а","a1":"Сайтом надежной авиакомпании","t1":"ИБ","a2":"Сайтом агрегатором билетов","t2":"КС","a3":"Мобильным приложением","t3":"ПИ","a4":"Спрошу у друзей как они искали билеты","t4":"ИТМ"},{"q":"Ваши дела плохи. Вы на грани отчисления. Ваши родители ждут списков на отчисление. Ваши действия? а","a1":"Удалить свою фамилию из списка в html странице и отправить ссылку родителям","t1":"ВР","a2":"Попытаться взломать систему института","t2":"ИБ","a3":"Узнать у людей в институте какие есть выходы из ситуации","t3":"ИТМ","a4":"Сформировать свой документ мигрировав данные из официального","t4":"КС"},{"q":"Ваш руководитель требует от вас проект на свободную тему. а","a1":"Найти готовый проект в интернете и доработать его","t1":"ВР","a2":"Написать программу упрощающую ваши основные обязанности","t2":"ПИ","a3":"Попробовать себя в сфере с нейросетями","t3":"КС","a4":"Спроектировать материальный предмет чтобы распечатать его на 3D принтере","t4":"САПР"},{"q":"Вы заканчиваете институт и вас приглашают работать в малоизвестную компанию. Что вы сделает для начала? а","a1":"Посмотреть официальный сайт и оценить потенциал компании","t1":"ВР","a2":"Посмотреть официальную статистику и предположите примерное развитие компании","t2":"КС","a3":"Просмотрите все документы компании и их структуру взаимодействия","t3":"ПИ","a4":"встретитесь с человеком уже работающим в этой компании и узнаете обо всем изнутри","t4":"ИТМ"},{"q":"Вы заведуете большим отделом компании. начальник просит от вас ответ по эффективности сотрудников. Ваши действия? а","a1":"Сформировать отчет с помощью запроса к базе данных","t1":"КС","a2":"узнать у неэффективных сотрудников причины и сформировать отчет основываясь на личном восприятии","t2":"ИТМ","a3":"сформировать математическую модель учитывающую эффективность сотрудников по определенной формуле","t3":"ПМиИ","a4":"попытаться составить отчет на основании документов оформленных в crm системе","t4":"ПИ"}]';
+var qwestions = JSON.parse(jsonQwestions);
+
+function startQwestion(){
+	generateQwestions();
+	nextQwestion();
+}
 
 function nextQwestion(){
-	if(currentPage < lastPage){
-		$('.carousel').carousel('next');
-		$('.carousel').carousel('pause');
-		currentPage++;
-		showNextButton();
-		showPrevButton();
-	}
-	else{
-		//reset
-		$('.carousel').carousel('next');
-		$('.carousel').carousel('pause');
-		currentPage = 0;
-	}
+	if(currentQwestion == qwestions.length-1)
+		$(".carousel-inner").html($(".carousel-inner").html() + getResult());
+	
+	$('#container'+currentQwestion).fadeOut(500);
+	$('.carousel').carousel('next');
+	currentQwestion++;
+	$('body').height($('html').height());
+	$('#container'+currentQwestion).fadeIn(500);
+	$('.carousel').carousel('pause');
+	checkDeviceWidth();
 }
-function prevQwestion(){
-	if(currentPage > 0){
-		$('.carousel').carousel('prev');
-		$('.carousel').carousel('pause');
-		currentPage--;
-		showNextButton();
-		showPrevButton();
-	}
+
+function restarQwestion(){
+	nextQwestion();
+	currentQwestion=-1;
 }
+
+
 function showNextButton() {
-	$('.carousel-control-next').prop('hidden', !(currentPage > 0 && currentPage < lastPage));
+	//$('.carousel-control-next').prop('hidden', !(currentPage > 0 && currentPage < lastPage));
 }
 function showPrevButton() {
-	$('.carousel-control-prev').prop('hidden', !(currentPage > 0 && currentPage < lastPage));
+	//$('.carousel-control-prev').prop('hidden', !(currentPage > 0 && currentPage < lastPage));
+}
+function checkDeviceWidth() {
+	var height = $('#top'+currentQwestion).height();
+	var top = $('#top'+currentQwestion).offset().top;
+	var bottom = $('#bottom'+currentQwestion).offset().top;
+	if(top+height+10 > bottom)
+		$('body').animate({height: $('html').height() + top+height+10 - bottom}, 500);
+	else
+		$('body').animate({height: $('html').height()}, 500);
+
+}
+
+function getQwestion(i, q) {
+	var s = "";          
+	s+="<div class=\"carousel-item\">	";
+    s+="        <div id=\"container"+i+"\" class=\"container\">	";
+    s+="          <div class=\"carousel-caption\">	";
+    s+="            <div id=\"top"+i+"\" class=\"carousel-caption-top\">	";
+    s+="                <h3>Вопрос "+i+".</h3>	";
+    s+="                <p id=\"qwestion"+i+"\">"+q.q+"</p>	";
+    s+="                    <div id=\"answers"+i+"\" class=\"btn-group-toggle\" data-toggle=\"buttons\">	";
+    s+="                      <label class=\"btn btn-choice "+q.t1+"\">	";
+    s+="                        <input type=\"radio\" autocomplete=\"off\"> "+q.a1;
+    s+="                      </label>	";
+    s+="                      <label class=\"btn btn-choice "+q.t2+"\">	";
+    s+="                        <input type=\"radio\" autocomplete=\"off\"> "+q.a2;
+    s+="                      </label>	";
+    s+="                      <label class=\"btn btn-choice "+q.t3+"\">	";
+    s+="                        <input type=\"radio\" autocomplete=\"off\"> "+q.a3;
+    s+="                      </label>	";
+    s+="                      <label class=\"btn btn-choice "+q.t4+"\">	";
+    s+="                        <input type=\"radio\" autocomplete=\"off\"> "+q.a4;
+    s+="                      </label>	";
+    s+="                    </div>	";
+    s+="            </div>	";
+    s+="            <div id=\"bottom"+i+"\" class=\"carousel-caption-bottom\">	";
+    s+="                <button onclick=\"nextQwestion()\" class=\"btn btn-lg btn-answer\">Ответить</button>	";
+    s+="            </div>	";
+    s+="          </div>	";
+    s+="        </div>	";
+    s+="      </div>	";
+
+    return s;
+}
+function generateQwestions() {
+	for (var i = 0; i < qwestions.length; i++) {
+		$(".carousel-inner").html($(".carousel-inner").html()+getQwestion(i, qwestions[i]));
+	}
+}
+
+function getResult(){
+	var s = "";
+	s+="      <div class=\"carousel-item\">";
+    s+="        <div id=\"container"+qwestions.length+"\" class=\"container\">";
+    s+="          <div class=\"carousel-caption\">";
+    s+="            <div id=\"top"+qwestions.length+"\" class=\"carousel-caption-top\">";
+    s+="                <h3>Ты похож на сисадмина ))</h3>";
+    s+="                <img src=\"img/men2.png\">";
+    s+="                <p>Тебе подойдут направления:";
+    s+="                  <ul>";
+    s+="                  <li>КИБЕРФИЗИЧЕСКИЕ СИСТЕМЫ</li>";
+    s+="                  <li>ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ</li>";
+    s+="                  </ul>";
+    s+="                </p><br>";
+    s+="            </div>";
+    s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+    s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
+    s+="            </div>";
+    s+="          </div>";
+    s+="        </div>";
+    s+="      </div>";
+
+    return s;
 }
