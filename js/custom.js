@@ -15,7 +15,7 @@ checkDeviceWidth();
 $(window).resize(function () {
     $('body').height($('html').height());
     checkDeviceWidth();
-    $('#bg').height($('body').height());
+    $('#bg').height($(window).height());
 });
 
 function startQwestion(){
