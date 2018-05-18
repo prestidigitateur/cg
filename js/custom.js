@@ -15,7 +15,7 @@ checkDeviceWidth();
 $(window).resize(function () {
     $('body').height($('html').height());
     checkDeviceWidth();
-    $('#bg').height($(window).height());
+    $('#bg').height($(window).height()+60);
 });
 
 function startQwestion(){
@@ -104,9 +104,9 @@ function getResult(){
     s+="        <div id=\"container"+qwestions.length+"\" class=\"container\">";
     s+="          <div class=\"carousel-caption\">";
     s+="            <div id=\"top"+qwestions.length+"\" class=\"carousel-caption-top\">";
-    s+="                <h3>Ты похож на сисадмина ))</h3>";
+    s+="                <h3>Ты похож на политеховца ))</h3>";
     s+="                <img src=\"img/men2.png\">";
-    s+="                <p>Тебе подойдут направления:</p>";
+    s+="                <p style=\"font-size: 1.2rem;\">Тебе подойдут направления:</p>";
     s+="                  <a href=\""+results[0].link+"\"> <li>"+results[0].sp+"</li></a>";
     s+="                  <a href=\""+results[1].link+"\"> <li>"+results[1].sp+"</li></a>";
     s+="                  <a href=\""+results[2].link+"\"> <li>"+results[2].sp+"</li></a>";
