@@ -5,12 +5,22 @@ html, body, .container{
 	height: 100%;
 }
 body{
-	background: url(http://mospolytech.ru/img_new/top_bn/04.jpg) no-repeat center center fixed; 
+	background: url(../img/04.jpg) no-repeat center center fixed; 
 	background-size: cover;
   	-moz-background-size: cover;
 	-o-background-size: cover;
 	-webkit-background-size: cover;
-  min-height: 550px;
+  
+}
+
+a > li{
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: left;
+}
+a > li:hover{
+  color: #ddd;
+  text-decoration: underline solid #ccc;
 }
 
 .carousel,.carousel-inner,.carousel-item,.container {
