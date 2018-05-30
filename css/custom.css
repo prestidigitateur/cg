@@ -49,7 +49,7 @@ a > li:hover{
 }
 
 .carousel-item > .container {
-  background-color: #30303060;
+  background-color: rgba(48, 48, 48, 0.4);;
   border-radius: 1em;
   max-width: 60em;
   max-height: 60em;
@@ -97,12 +97,12 @@ a > li:hover{
 
 .btn-share {
   color: #fff;
-  background-color: #101010D0;
+  background-color: rgba(16, 16, 16, 0.8);
   border-color: #989898;
 }
 .btn-share:hover {
   color: #fff;
-  background-color: #242424E0;
+  background-color: rgba(36, 36, 36, 0.88);
   border-color: #989898;
 }
 .btn-answer {
@@ -110,12 +110,12 @@ a > li:hover{
   width: 100%;
   max-width: 12em;
   color: #fff;
-  background-color: #101010D0;
+  background-color: rgba(16, 16, 16, 0.8);
   border-color: #989898;
 }
 .btn-answer:hover {
   color: #fff;
-  background-color: #242424E0;
+  background-color: rgba(36, 36, 36, 0.88);
   border-color: #989898;
 }
 .btn-choice {
@@ -126,18 +126,18 @@ a > li:hover{
   width: 100%;
   max-width: 50em;
   color: #fff;
-  background-color: #303030D0;
+  background-color: rgba(48, 48, 48, 0.8);;
   border-color: #989898;
 }
 .btn-choice:hover {
   color: #fff;
-  background-color: #242424E0;
+  background-color: rgba(36, 36, 36, 0.88);
   border-color: #989898;
 }
 .btn-choice:active, .btn-choice.active,
 .show > .btn-choice.dropdown-toggle {
   color: #fff;
-  background-color: #0B0D15E0;
+  background-color: rgba(11, 13, 21, 0.88);
   background-image: none;
   border-color: #989898;
 }
