@@ -6,16 +6,18 @@ var results;
 
 $.getJSON( "json/qwestions.json")
 .done(function(data){
-	qwestions = JSON.parse(data);
-}).fail(function() {
+	qwestions = data.responseJSON;	
+})
+.fail(function() {
     console.log( "failed load json from qwestions file");
     qwestions = JSON.parse(jsonDefaultQwestions);
 });
 
 $.getJSON( "json/results.json")
-.done(function(data) {
-  results = JSON.parse(data);
-}).fail(function() {
+.done(function(data){
+	results = data.responseJSON;	
+})
+.fail(function() {
     console.log( "failed load json from results file");
     results = JSON.parse(jsonDefaultResults);
 });
