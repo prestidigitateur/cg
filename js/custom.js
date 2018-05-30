@@ -4,14 +4,16 @@ var qwestions;
 var jsonDefaultResults = '[{"tag":"ВР", "sp":"Веб-технологии", "link":"http://mospolytech.ru/index.php?id=5315", "per":0, "count":0, "total":0},{"tag":"САПР", "sp":"Интеграция и программирование САПР", "link":"http://mospolytech.ru/index.php?id=5314", "per":0, "count":0, "total":0},{"tag":"ИБ", "sp":"Кибербезопасность новой информационной среды", "link":"http://mospolytech.ru/index.php?id=5313", "per":0, "count":0, "total":0},{"tag":"КС", "sp":"Киберфизические системы", "link":"http://mospolytech.ru/index.php?id=5318", "per":0, "count":0, "total":0},{"tag":"ПИ", "sp":"Корпоративные информационные системы", "link":"http://mospolytech.ru/index.php?id=5316", "per":0, "count":0, "total":0},{"tag":"ИТМ", "sp":"ИТ-менеджмент", "link":"http://mospolytech.ru/index.php?id=5319", "per":0, "count":0, "total":0},{"tag":"ПМиИ", "sp":"Большие и открытые данные", "link":"http://mospolytech.ru/index.php?id=5317", "per":0, "count":0, "total":0}]';
 var results;
 
-$.getJSON( "json/qwestions.json", function(data) {
-  qwestions = JSON.parse(data);
+$.getJSON( "json/qwestions.json")
+.done(function(data){
+	qwestions = JSON.parse(data);
 }).fail(function() {
     console.log( "failed load json from qwestions file");
     qwestions = JSON.parse(jsonDefaultQwestions);
 });
 
-$.getJSON( "json/results.json", function(data) {
+$.getJSON( "json/results.json")
+.done(function(data) {
   results = JSON.parse(data);
 }).fail(function() {
     console.log( "failed load json from results file");
