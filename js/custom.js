@@ -6,7 +6,8 @@ var results;
 
 $.getJSON( "json/qwestions.json")
 .done(function(data){
-	qwestions = data.responseJSON;	
+	console.log( "success load json from qwestions file");
+	qwestions = data;	
 })
 .fail(function() {
     console.log( "failed load json from qwestions file");
@@ -15,7 +16,8 @@ $.getJSON( "json/qwestions.json")
 
 $.getJSON( "json/results.json")
 .done(function(data){
-	results = data.responseJSON;	
+	console.log( "success load json from results file");
+	results = data;	
 })
 .fail(function() {
     console.log( "failed load json from results file");
