@@ -52,7 +52,7 @@ a > li:hover{
   background-color: #30303060;
   border-radius: 1em;
   max-width: 60em;
-  max-height: 50em;
+  max-height: 60em;
 }
 
 .carousel-caption {

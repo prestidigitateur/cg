@@ -15,6 +15,7 @@ $.getJSON( "json/qwestions.json")
 })
 .always(function() {
 	generateQwestions();
+	checkDeviceWidth();
 });
 
 $.getJSON( "json/results.json")
@@ -27,13 +28,10 @@ $.getJSON( "json/results.json")
     results = JSON.parse(jsonDefaultResults);
 });
 
-
-
-checkDeviceWidth();
 $(window).resize(function () {
-    $('body').height($('html').height());
-    checkDeviceWidth();
+    $('body').height($('html').height());    
     $('#bg').height($(window).height()+60);
+    checkDeviceWidth();
 });
 
 function startQwestion(){
@@ -47,7 +45,6 @@ function nextQwestion(){
 	$('#container'+currentQwestion).fadeOut(500);
 	$('.carousel').carousel('next');
 	currentQwestion++;
-	$('body').height($('html').height());
 	$('#container'+currentQwestion).fadeIn(500);
 	$('.carousel').carousel('pause');
 	checkDeviceWidth();
@@ -65,14 +62,14 @@ function showPrevButton() {
 	//$('.carousel-control-prev').prop('hidden', !(currentPage > 0 && currentPage < lastPage));
 }
 function checkDeviceWidth() {
-	var height = $('#top'+currentQwestion).height();
-	var top = $('#top'+currentQwestion).offset().top;
-	var bottom = $('#bottom'+currentQwestion).offset().top;
-	if(top+height+10 > bottom)
-		$('body').animate({height: $('html').height() + top+height+10 - bottom}, 500);
-	else
-		$('body').animate({height: $('html').height()}, 500);
+	var topHeight = $('#top'+currentQwestion).height();
+	var topPosition = $('#top'+currentQwestion).offset().top;
+	var bottomHeight = $('#bottom'+currentQwestion).height();
+	var bottomPosition = $('#bottom'+currentQwestion).offset().top;
 
+	var bodyChange = $('body').height() + (topPosition + topHeight + 10 - bottomPosition);
+
+	$('body').animate({height: bodyChange}, 500);
 }
 
 function getQwestion(i, q) {
@@ -122,7 +119,7 @@ function getResult(){
     s+="          <div class=\"carousel-caption\">";
     s+="            <div id=\"top"+qwestions.length+"\" class=\"carousel-caption-top\">";
     s+="                <h3>Ты похож на политеховца ))</h3>";
-    s+="                <img src=\"img/men2.png\">";
+    s+="                <img src=\"img/men2.png\" onload=\"checkDeviceWidth()\">";
     s+="                <p style=\"font-size: 1.2rem;\">Тебе подойдут направления:</p>";
     s+="                  <a href=\""+results[0].link+"\"> <li>"+results[0].sp+" - "+results[0].per.toFixed()+"%</li></a>";
     s+="                  <a href=\""+results[1].link+"\"> <li>"+results[1].sp+" - "+results[1].per.toFixed()+"%</li></a>";
