@@ -12,6 +12,9 @@ $.getJSON( "json/qwestions.json")
 .fail(function() {
     console.log( "failed load json from qwestions file");
     qwestions = JSON.parse(jsonDefaultQwestions);
+})
+.always(function() {
+	generateQwestions();
 });
 
 $.getJSON( "json/results.json")
@@ -24,7 +27,7 @@ $.getJSON( "json/results.json")
     results = JSON.parse(jsonDefaultResults);
 });
 
-generateQwestions();
+
 
 checkDeviceWidth();
 $(window).resize(function () {
