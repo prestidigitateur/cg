@@ -119,19 +119,21 @@ function getResult(){
     s+="          <div class=\"carousel-caption\">";
     s+="            <div id=\"top"+qwestions.length+"\" class=\"carousel-caption-top\">";
     s+="                <h3>Ты похож на политеховца ))</h3>";
-    s+="                <img src=\"img/men2.png\" onload=\"checkDeviceWidth()\">";
+    //s+="                <img src=\"img/men2.png\" onload=\"checkDeviceWidth()\">";
     s+="                <p style=\"font-size: 1.2rem;\">Тебе подойдут направления:</p>";
     s+="                  <a href=\""+results[0].link+"\"> <li>"+results[0].sp+" - "+results[0].per.toFixed()+"%</li></a>";
     s+="                  <a href=\""+results[1].link+"\"> <li>"+results[1].sp+" - "+results[1].per.toFixed()+"%</li></a>";
     s+="                  <a href=\""+results[2].link+"\"> <li>"+results[2].sp+" - "+results[2].per.toFixed()+"%</li></a>";
     s+="                <br>";
-    s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
-    s+="            </div>";
-    s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+    s+="				<h5>Поделись своим результатом</h5>"
     s+="                <button type=\"button\" class=\"btn btn-share\" onclick=\"share('vk')\"><i class=\"fa fa-vk\"></i></button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('fb')\"><i class=\"fa fa-facebook\"></i> </button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('tw')\"><i class=\"fa fa-twitter\"></i> </button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('gp')\"><i class=\"fa fa-google-plus\"></i> </button>";
+    s+="            </div>";
+    s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+    s+="				<br><br>";
+	s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
     s+="            </div>";
     s+="          </div>";
     s+="        </div>";
@@ -171,19 +173,34 @@ function generateResult(){
 
 function share(social){
     var url_share = location.href;
+    var title_share = "Ищу себя в поликеке";
+    var description_share = "Мне подходят";
+    description_share += results[0].sp+" - "+results[0].per.toFixed();
+    description_share += results[1].sp+" - "+results[1].per.toFixed();
+    description_share +=  "Я уже знаю куда идти, а ты? #mospolytech #fitmospolytech #career";
+    var image_share = "https://sun1-7.userapi.com/c834301/v834301347/b7ea3/wLvLZfO6QaE.jpg";
     var url_soc = false;
     switch (social) {
         case "vk":
-            url_soc = "https://vk.com/share.php?url="+url_share;
+            url_soc  = 'https://vk.com/share.php?';
+			url_soc += 'url='          + encodeURIComponent(url_share);
+			url_soc += '&title='       + encodeURIComponent(title_share);
+			url_soc += '&description=' + encodeURIComponent(description_share);
+			url_soc += '&image='       + encodeURIComponent(image_share);
+			url_soc += '&noparse=true';
             break;
-        case "fb":
-            url_soc = "https://www.facebook.com/sharer/sharer.php?u="+url_share;
+        case "fb":            
+            url_soc  = 'http://www.facebook.com/sharer.php?s=100';
+			url_soc += '&p[title]='     + encodeURIComponent(title_share);
+			url_soc += '&p[summary]='   + encodeURIComponent(description_share);
+			url_soc += '&p[url]='       + encodeURIComponent(url_share);
+			url_soc += '&p[images][0]=' + encodeURIComponent(image_share);
             break;
-        case "ok":
-            url_soc = "https://connect.ok.ru/offer?url="+url_share;
-            break;
-        case "tw":
-            url_soc = "https://twitter.com/intent/tweet?url="+url_share;
+        case "tw":            
+            url_soc  = 'http://twitter.com/share?';
+			url_soc += 'text='      + encodeURIComponent(title_share);
+			url_soc += '&url='      + encodeURIComponent(url_share);
+			url_soc += '&counturl=' + encodeURIComponent(url_share);
             break;
         case "gp":
             url_soc = "https://plus.google.com/share?url="+url_share;
@@ -198,7 +215,7 @@ function share(social){
         var left = (window.screen.width - width) / 2;
         var top = (window.screen.height - height) / 2;
         // открываем окно
-        social_window = window.open(url_soc, "share_window", "height=" + height + ",width=" + width + ",top=" + top + ",left=" + left);
+        social_window = window.open(url_soc, "share_window", "toolbar=0,status=0,height=" + height + ",width=" + width + ",top=" + top + ",left=" + left);
         // устанавливаем на окно фокус
         social_window.focus();
     }
