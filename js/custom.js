@@ -119,7 +119,7 @@ function getResult(){
     s+="          <div class=\"carousel-caption\">";
     s+="            <div id=\"top"+qwestions.length+"\" class=\"carousel-caption-top\">";
     s+="                <h3>Ты похож на политеховца ))</h3>";
-    s+="                <img src=\"img/men2.png\" onload=\"checkDeviceWidth()\">";
+    //s+="                <img src=\"img/men2.png\" onload=\"checkDeviceWidth()\">";
     s+="                <p style=\"font-size: 1.2rem;\">Тебе подойдут направления:</p>";
     s+="                  <a href=\""+results[0].link+"\"> <li>"+results[0].sp+" - "+results[0].per.toFixed()+"%</li></a>";
     s+="                  <a href=\""+results[1].link+"\"> <li>"+results[1].sp+" - "+results[1].per.toFixed()+"%</li></a>";
@@ -128,6 +128,7 @@ function getResult(){
     s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
     s+="            </div>";
     s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+    s+="				<h5> Поделись этим тестом </h5>";
     s+="                <button type=\"button\" class=\"btn btn-share\" onclick=\"share('vk')\"><i class=\"fa fa-vk\"></i></button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('fb')\"><i class=\"fa fa-facebook\"></i> </button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('tw')\"><i class=\"fa fa-twitter\"></i> </button>";
