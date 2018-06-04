@@ -39,15 +39,21 @@ function startQwestion(){
 }
 
 function nextQwestion(){
-	if(currentQwestion == qwestions.length-1)
-		generateResult();	
-	
-	$('#container'+currentQwestion).fadeOut(500);
-	$('.carousel').carousel('next');
-	currentQwestion++;
-	$('#container'+currentQwestion).fadeIn(500);
-	$('.carousel').carousel('pause');
-	checkDeviceWidth();
+	try{
+		if(currentQwestion == qwestions.length-1)
+			generateResult();	
+		
+		$('#container'+currentQwestion).fadeOut(500);
+		$('.carousel').carousel('next');
+		currentQwestion++;
+		$('#container'+currentQwestion).fadeIn(500);
+		$('.carousel').carousel('pause');
+		checkDeviceWidth();
+	}
+	catch(error){
+		alert("Пожалуйста, нет так быстро! (╯°□°）╯");
+		setTimeout(function(){ nextQwestion();}, 500); 
+	}
 }
 
 function restarQwestion(){
@@ -125,14 +131,18 @@ function getResult(){
     s+="                  <a href=\""+results[1].link+"\"> <li>"+results[1].sp+" - "+results[1].per.toFixed()+"%</li></a>";
     s+="                  <a href=\""+results[2].link+"\"> <li>"+results[2].sp+" - "+results[2].per.toFixed()+"%</li></a>";
     s+="                <br>";
-    s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
-    s+="            </div>";
-    s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+
     s+="				<h5> Поделись этим тестом </h5>";
     s+="                <button type=\"button\" class=\"btn btn-share\" onclick=\"share('vk')\"><i class=\"fa fa-vk\"></i></button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('fb')\"><i class=\"fa fa-facebook\"></i> </button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('tw')\"><i class=\"fa fa-twitter\"></i> </button>";
 	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('gp')\"><i class=\"fa fa-google-plus\"></i> </button>";
+
+    s+="            </div>";
+    s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+
+    s+="                <br><button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
+
     s+="            </div>";
     s+="          </div>";
     s+="        </div>";

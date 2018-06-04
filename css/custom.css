@@ -21,12 +21,13 @@ html, body, .container{
   z-index:-1;  
 }
 
-a > li{
+a > li, a{
   color: #fff;
   font-size: 1.2rem;
   text-align: left;
+  text-decoration: underline solid #ccc;
 }
-a > li:hover{
+a > li:hover, a:hover{
   color: #ddd;
   text-decoration: underline solid #ccc;
 }
@@ -91,6 +92,7 @@ a > li:hover{
 	max-height: 250em;
 	max-width: 25em;
 }
+
 .btn-choice > img{
   width: 100%; 
 }
@@ -161,3 +163,4 @@ a > li:hover{
   top: 20%;
   }
 }
+
