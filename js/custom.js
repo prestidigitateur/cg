@@ -159,19 +159,14 @@ function generateResult(){
 
 	$('.btn-choice').each(function (i, e) {
 		for(var i = 0; i < results.length; i++){
-	    	if($(e).hasClass("active") && $(e).data("tag") == results[i].tag)
-	    		results[i].count++;
+	    	if($(e).data("tag") == results[i].tag){
+                results[i].total++;
+                if($(e).hasClass("active"))
+	    		    results[i].count++;
+            }
 		}        
     });
  
-    for(var i = 0; i < qwestions.length; i++){
-        for(var j = 0; j < 4; j++){
-            for (var k = 0; k < results.length; k++) {
-                 results[k].total += (results[k].tag == qwestions[i].as[j].t ? 1 : 0);
-             } 
-        }
-    }
-
     for(var i = 0; i < results.length; i++){
         results[i].per = (results[i].count / results[i].total)*100;
     }     
