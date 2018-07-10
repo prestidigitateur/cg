@@ -101,6 +101,7 @@ a > li:hover, a:hover{
   color: #fff;
   background-color: rgba(16, 16, 16, 0.8);
   border-color: #989898;
+  border: 0;
 }
 .btn-share:hover {
   color: #fff;
@@ -164,3 +165,6 @@ a > li:hover, a:hover{
   }
 }
 
+.share-block{
+  margin: 35px 0 10px;
+}

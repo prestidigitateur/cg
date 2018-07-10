@@ -52,7 +52,14 @@ function nextQwestion(){
 	}
 	catch(error){
 		alert("Пожалуйста, нет так быстро! (╯°□°）╯");
-		setTimeout(function(){ nextQwestion();}, 500); 
+		setTimeout(function(){
+            $('#container'+currentQwestion).fadeOut(500);
+            $('.carousel').carousel('prev');
+            currentQwestion--;
+            $('#container'+currentQwestion).fadeIn(500);
+            $('.carousel').carousel('pause');
+            checkDeviceWidth();
+        }, 500); 
 	}
 }
 
@@ -124,30 +131,29 @@ function getResult(){
     s+="                <p style=\"font-size: 1.2rem;\">Тебе подойдут направления:</p>";
 
     if(results[0].per.toFixed() == 0){
-        s+="                  <a href=\"https://vk.com/mpu_overhear\"> Никакие! Ахахахах 🤣</a>";          
+        s+="                  <a href=\"https://vk.com/mpu_overhear\"> Никакие! Ахахахах >_<</a>";          
     }
     else
     {
         var i = 0;
         do {
-            s+="                  <a href=\""+results[i].link+"\"> <li>"+results[i].sp+" - "+results[i].per.toFixed()+"%</li></a>";
+            s+="                  <a href=\""+results[i].link+"\" target=\"_blank\"> <li>"+results[i].sp+" - "+results[i].per.toFixed()+"%</li></a>";
             i++;
 
         } while(results[i].per.toFixed() >= 30)
     }
-
-    s+="                <br>";
-    s+="				<h5> Поделись этим тестом </h5>";
-    s+="                <button type=\"button\" class=\"btn btn-share\" onclick=\"share('vk')\"><i class=\"fa fa-vk\"></i></button>";
-	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('fb')\"><i class=\"fa fa-facebook\"></i> </button>";
-	s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('tw')\"><i class=\"fa fa-twitter\"></i> </button>";
-	//s+="				<button type=\"button\" class=\"btn btn-share\" onclick=\"share('gp')\"><i class=\"fa fa-google-plus\"></i> </button>";
+    s+="                <text style=\"font-size: 0.8rem;\"> Нажми чтобы узнать подробнее</text>";
+    s+="                <div class=\"share-block\">";
+    s+="				    <h5> Поделись этим тестом </h5>";
+    s+="                    <button type=\"button\" class=\"btn btn-share\" onclick=\"share('vk')\"><i class=\"fa fa-2x fa-vk\"></i></button>";
+	s+="				    <button type=\"button\" class=\"btn btn-share\" onclick=\"share('fb')\"><i class=\"fa fa-2x fa-facebook\"></i> </button>";
+	s+="				    <button type=\"button\" class=\"btn btn-share\" onclick=\"share('tw')\"><i class=\"fa fa-2x fa-twitter\"></i> </button>";
+	//s+="			        <button type=\"button\" class=\"btn btn-share\" onclick=\"share('gp')\"><i class=\"fa fa-google-plus\"></i> </button>";
+    s+="                </div>";
 
     s+="            </div>";
     s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
-
-    s+="                <br><button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
-
+    s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
     s+="            </div>";
     s+="          </div>";
     s+="        </div>";
