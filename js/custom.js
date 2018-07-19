@@ -4,10 +4,17 @@ var qwestions;
 var jsonDefaultResults = '[{"tag":"ВР", "sp":"Веб-технологии", "link":"http://mospolytech.ru/index.php?id=5315", "per":0, "count":0, "total":0},{"tag":"САПР", "sp":"Интеграция и программирование САПР", "link":"http://mospolytech.ru/index.php?id=5314", "per":0, "count":0, "total":0},{"tag":"ИБ", "sp":"Кибербезопасность новой информационной среды", "link":"http://mospolytech.ru/index.php?id=5313", "per":0, "count":0, "total":0},{"tag":"КС", "sp":"Киберфизические системы", "link":"http://mospolytech.ru/index.php?id=5318", "per":0, "count":0, "total":0},{"tag":"ПИ", "sp":"Корпоративные информационные системы", "link":"http://mospolytech.ru/index.php?id=5316", "per":0, "count":0, "total":0},{"tag":"ИТМ", "sp":"ИТ-менеджмент", "link":"http://mospolytech.ru/index.php?id=5319", "per":0, "count":0, "total":0},{"tag":"ПМиИ", "sp":"Большие и открытые данные", "link":"http://mospolytech.ru/index.php?id=5317", "per":0, "count":0, "total":0}]';
 var results;
 
-$.getJSON( "json/qwestions.json")
+var qwestionsLength = 10;
+
+$.getJSON( "json/qwestions100.json")
 .done(function(data){
 	console.log( "success load json from qwestions file");
-	qwestions = data;	
+	qwestions = data;
+
+    qwestions.sort(function(a,b){
+        return Math.round(Math.random())*3-1;
+    });
+
 })
 .fail(function() {
     console.log( "failed load json from qwestions file");
@@ -40,7 +47,7 @@ function startQwestion(){
 
 function nextQwestion(){
 	try{
-		if(currentQwestion == qwestions.length-1)
+		if(currentQwestion == qwestionsLength-1)
 			generateResult();	
 		
 		$('#container'+currentQwestion).fadeOut(500);
@@ -85,6 +92,10 @@ function checkDeviceWidth() {
 	$('body').animate({height: bodyChange}, 500);
 }
 
+function choiceClick(e){
+    $( this ).toggleClass( "active" );
+}
+
 function getQwestion(i, q) {
 	var s = "";          
 	s+="<div class=\"carousel-item\">	";
@@ -96,9 +107,9 @@ function getQwestion(i, q) {
     s+="                    <div id=\"answers"+i+"\" class=\"btn-group-toggle\" data-toggle=\"buttons\" >	";
 
     for (var j = 0; j < q.as.length; j++) {
-        s+="                      <label class=\"btn btn-choice\" data-tag=\""+q.as[j].t+"\"> ";
+        s+="                      <button class=\"btn btn-choice\" data-tag=\""+q.as[j].t+"\" onclick=\"choiceClick()\"> ";
         s+="                        <input type=\"radio\" autocomplete=\"off\"> "+q.as[j].a;
-        s+="                      </label>  ";
+        s+="                      </button>  ";
     }
 
     s+="                    </div><br>";
@@ -113,22 +124,22 @@ function getQwestion(i, q) {
     return s;
 }
 function generateQwestions() {
-	for (var i = 0; i < qwestions.length; i++) {
+	for (var i = 0; i < qwestionsLength; i++) {
 	   $(".carousel-inner").html($(".carousel-inner").html()+getQwestion(i, qwestions[i]));
 	   $(".carousel-indicators").html($(".carousel-indicators").html()+"<li data-target=\"#carousel\" data-slide-to=\""+(i+1)+"\"></li>");
     }
-    $(".carousel-indicators").html($(".carousel-indicators").html()+"<li data-target=\"#carousel\" data-slide-to=\""+(qwestions.length+1)+"\"></li>");
+    $(".carousel-indicators").html($(".carousel-indicators").html()+"<li data-target=\"#carousel\" data-slide-to=\""+(qwestionsLength+1)+"\"></li>");
 }
 
 function getResult(){
 	var s = "";
 	s+="      <div class=\"carousel-item\">";
-    s+="        <div id=\"container"+qwestions.length+"\" class=\"container\">";
+    s+="        <div id=\"container"+qwestionsLength+"\" class=\"container\">";
     s+="          <div class=\"carousel-caption\">";
-    s+="            <div id=\"top"+qwestions.length+"\" class=\"carousel-caption-top\">";
+    s+="            <div id=\"top"+qwestionsLength+"\" class=\"carousel-caption-center\">";
     s+="                <h3>Ты похож на политеховца ))</h3>";
     //s+="                <img src=\"img/men2.png\" onload=\"checkDeviceWidth()\">";
-    s+="                <p style=\"font-size: 1.2rem;\">Тебе подойдут направления:</p>";
+    s+="                <p>Тебе подойдут направления:</p>";
 
     if(results[0].per.toFixed() == 0){
         s+="                  <a href=\"https://vk.com/mpu_overhear\"> Никакие! Ахахахах >_<</a>";          
@@ -141,8 +152,9 @@ function getResult(){
             i++;
 
         } while(results[i].per.toFixed() >= 30)
+        s+="                <text style=\"font-size: 0.8rem;\"> Нажми чтобы узнать подробнее</text>";
     }
-    s+="                <text style=\"font-size: 0.8rem;\"> Нажми чтобы узнать подробнее</text>";
+    
     s+="                <div class=\"share-block\">";
     s+="				    <h5> Поделись этим тестом </h5>";
     s+="                    <button type=\"button\" class=\"btn btn-share\" onclick=\"share('vk')\"><i class=\"fa fa-2x fa-vk\"></i></button>";
@@ -152,7 +164,7 @@ function getResult(){
     s+="                </div>";
 
     s+="            </div>";
-    s+="            <div id=\"bottom"+qwestions.length+"\" class=\"carousel-caption-bottom\">";
+    s+="            <div id=\"bottom"+qwestionsLength+"\" class=\"carousel-caption-bottom\">";
     s+="                <button onclick=\"restarQwestion()\" class=\"btn btn-lg btn-answer\">Ещё раз</button>";
     s+="            </div>";
     s+="          </div>";
