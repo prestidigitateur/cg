@@ -153,6 +153,9 @@ p{
   .carousel-caption {
     top: 1em;
   }
+  .carousel-caption-center{
+    top: 20%;
+  }
 }
 @media (max-width: 360px), (max-height: 560px) {
   .btn-choice {
@@ -165,10 +168,11 @@ p{
     width: 60%; 
   }
   .carousel-caption-center{
-    top: 20%;
+    top: 10%;
   }
 }
 
 .share-block{
+  min-height: 80px;
   margin: 35px 0 10px;
 }
